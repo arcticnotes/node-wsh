@@ -4,6 +4,8 @@ import { WindowsScriptingHost} from '@arcticnotes/node-wsh';
 
 TEST( 'smoke-test', async() => {
 	const wsh = await WindowsScriptingHost.connect();
+	wsh.on( 'ref', ( ref, obj) => console.log( 'ref', ref, obj));
+	wsh.on( 'unref', ref => console.log( 'unref', ref));
 	try {
 		const { WScript, GetObject, Enumerator} = wsh;
 		console.log( WScript.Version);
@@ -14,6 +16,7 @@ TEST( 'smoke-test', async() => {
 			ASSERT.equal( typeof enumerator.item().ProcessId, 'number');
 			ASSERT.equal( typeof enumerator.item().Name, 'string');
 		}
+		console.log( 'remote objects:', wsh.remoteObjects.count);
 	} finally {
 		await wsh.disconnect();
 	}
