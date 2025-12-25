@@ -9,7 +9,10 @@ TEST( 'smoke-test', async() => {
 		const GetObject = wsh.GetObject;
 		console.log( WScript.Version);
 		ASSERT.equal( typeof WScript.Version, 'string');
-		console.log( GetObject( "winmgmts:\\\\.\\root\\cimv2"));
+		const cimv2 = GetObject( "winmgmts:\\\\.\\root\\cimv2");
+		console.log( 'cimv2=', cimv2);
+		const procs = cimv2.ExecQuery( 'SELECT ProcessId, Name FROM Win32_Process');
+		console.log( 'procs=', procs);
 	} finally {
 		await wsh.disconnect();
 	}
