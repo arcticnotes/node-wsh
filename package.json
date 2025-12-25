@@ -22,5 +22,8 @@
 	},
 	"dependencies": {
 		"@arcticnotes/syncline": "0.0.3"
-	}
+	},
+	"files": [
+		"/lib/"
+	]
 }
