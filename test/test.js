@@ -7,12 +7,13 @@ TEST( 'smoke-test', async() => {
 	try {
 		const WScript = wsh.WScript;
 		const GetObject = wsh.GetObject;
+		const Enumerator = wsh.Enumerator;
+
 		console.log( WScript.Version);
 		ASSERT.equal( typeof WScript.Version, 'string');
-		const cimv2 = GetObject( "winmgmts:\\\\.\\root\\cimv2");
-		console.log( 'cimv2=', cimv2);
-		const procs = cimv2.ExecQuery( 'SELECT ProcessId, Name FROM Win32_Process');
-		console.log( 'procs=', procs);
+		const procs = GetObject( "winmgmts:\\\\.\\root\\cimv2").ExecQuery( 'SELECT ProcessId, Name FROM Win32_Process');
+		for( const enumerator = new Enumerator( procs); !enumerator.atEnd(); enumerator.moveNext())
+			console.log( `${ enumerator.item().ProcessId}: ${ enumerator.item().Name}`);
 	} finally {
 		await wsh.disconnect();
 	}
