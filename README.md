@@ -18,10 +18,10 @@ In JavaScript code:
 ```javascript
 import {WindowsScriptingHost} from '@arcticnotes/node-wsh';
 
-const wsh = await WindowsScriptingHost.connect();
-const WScript = wsh.WScript;
+const WSH = await WindowsScriptingHost.connect();
+const WScript = WSH.global( 'WScript');
 console.log(WScript.Version);
-await wsh.disconnect();
+await WSH.disconnect();
 ```
 
 ## Dependencies

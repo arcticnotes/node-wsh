@@ -7,7 +7,9 @@ TEST( 'smoke-test', async() => {
 	wsh.on( 'ref', ( ref, obj) => console.log( 'ref', ref, obj));
 	wsh.on( 'unref', ref => console.log( 'unref', ref));
 	try {
-		const { WScript, GetObject, Enumerator} = wsh;
+		const WScript = wsh.global( 'WScript');
+		const GetObject = wsh.global( 'GetObject');
+		const Enumerator = wsh.global( 'Enumerator');
 		console.log( WScript.Version);
 		ASSERT.equal( typeof WScript.Version, 'string');
 		const procs = GetObject( "winmgmts:\\\\.\\root\\cimv2").ExecQuery( 'SELECT ProcessId, Name FROM Win32_Process');
