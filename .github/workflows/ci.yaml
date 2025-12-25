@@ -22,4 +22,4 @@ jobs:
         shell: cmd
         run: chcp 65001
       - run: npm ci
-      - run: node --test
+      - run: node --expose-gc --test

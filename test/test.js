@@ -17,6 +17,10 @@ TEST( 'smoke-test', async() => {
 			ASSERT.equal( typeof enumerator.item().Name, 'string');
 		}
 		console.log( 'remote objects:', wsh.remoteObjects.count);
+		if( typeof global.gc === 'function') {
+			global.gc();
+			console.log( 'remote objects:', wsh.remoteObjects.count);
+		}
 	} finally {
 		await wsh.disconnect();
 	}
