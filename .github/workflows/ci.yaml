@@ -1,0 +1,25 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version:
+          - 20.x
+          - 22.x
+          - 24.x
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: ensure utf-8 console
+        shell: cmd
+        run: chcp 65001
+      - run: npm ci
+      - run: node --test
