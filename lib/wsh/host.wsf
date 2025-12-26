@@ -1,0 +1,4 @@
+<job>
+	<script language="VBScript" src="host.vbs" />
+	<script language="JScript" src="host.js" />
+</job>

@@ -4,9 +4,9 @@ import { WindowsScriptingHost} from '@arcticnotes/node-wsh';
 
 TEST( 'smoke-test', async() => {
 	const wsh = await WindowsScriptingHost.connect();
-	wsh.on( 'ref', ( ref, obj) => console.log( 'ref', ref, obj));
-	wsh.on( 'unref', ref => console.log( 'unref', ref));
 	try {
+		wsh.on( 'ref', ( ref, obj) => console.log( 'ref', ref, obj));
+		wsh.on( 'unref', ref => console.log( 'unref', ref));
 		const WScript = wsh.global( 'WScript');
 		const GetObject = wsh.global( 'GetObject');
 		const Enumerator = wsh.global( 'Enumerator');
@@ -23,6 +23,16 @@ TEST( 'smoke-test', async() => {
 			global.gc();
 			console.log( 'remote objects:', wsh.remoteObjects.count);
 		}
+	} finally {
+		await wsh.disconnect();
+	}
+});
+
+TEST( 'vbarray', async() => {
+	const wsh = await WindowsScriptingHost.connect();
+	try {
+		const CreateVBArray = wsh.global( 'CreateVBArray');
+		ASSERT.equal( typeof CreateVBArray( [ 1, 3, 5]), 'function');
 	} finally {
 		await wsh.disconnect();
 	}
