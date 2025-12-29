@@ -3,7 +3,7 @@ import TEST from 'node:test';
 import { WindowsScriptingHost} from '@arcticnotes/node-wsh';
 
 TEST( 'smoke-test', async() => {
-	const wsh = await WindowsScriptingHost.connect();
+	const wsh = await WindowsScriptingHost.connect( { printSynclineIO: true});
 	try {
 		wsh.on( 'ref', ( ref, obj) => console.log( 'ref', ref, obj));
 		wsh.on( 'unref', ref => console.log( 'unref', ref));
@@ -29,7 +29,7 @@ TEST( 'smoke-test', async() => {
 });
 
 TEST( 'vbarray', async() => {
-	const wsh = await WindowsScriptingHost.connect();
+	const wsh = await WindowsScriptingHost.connect( { printSynclineIO: true});
 	try {
 		const CreateVBArray = wsh.global( 'CreateVBArray');
 		ASSERT.equal( typeof CreateVBArray( [ 1, 3, 5]), 'function');

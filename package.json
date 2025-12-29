@@ -1,6 +1,6 @@
 {
 	"name": "@arcticnotes/node-wsh",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "A Node.js package that runs Windows Scripting Host (WSH) as a child process and exposes the resources from the WSH world to the Node.js world",
 	"author": "Paul <paul@arcticnotes.com>",
 	"license": "MIT",
@@ -21,7 +21,7 @@
 		".": "./lib/index.js"
 	},
 	"dependencies": {
-		"@arcticnotes/syncline": "0.0.3"
+		"@arcticnotes/syncline": "0.0.4"
 	},
 	"files": [
 		"/lib/"
